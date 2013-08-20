@@ -75,15 +75,15 @@
     // Set session input
     NSError *error = nil;
     self.videoInput = [AVCaptureDeviceInput deviceInputWithDevice: self.camera error: &error];
-    self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice:[self audioDevice] error:nil];
+    self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice: self.microfone error:nil];
 
     if(error) NSLog(@"%@", error);
     
-    if ([self.session canAddInput: self.videoInput]){
+    if ([self.session canAddInput: self.videoInput] && [self.session canAddInput: self.audioInput]) {
         [self.session addInput: self.videoInput];
+        [self.session addInput: self.audioInput];
     }
-    else
-    {
+    else {
         NSLog(@"Session input could not be added");
     }
 }
