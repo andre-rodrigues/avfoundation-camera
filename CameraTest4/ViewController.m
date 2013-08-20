@@ -17,7 +17,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    self.camera = [[Camera alloc] init];
+    [self.view addSubview: self.camera.view];
+    [self.camera start];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(stopCamera)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+-(void)stopCamera
+{
+    [self.camera stop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -25,5 +42,4 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 @end
