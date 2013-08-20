@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+#define degreesToRadians(x) (M_PI * x / 180.0)
+
 @protocol AVCaptureFileOutputRecordingDelegate;
 
 @interface Camera : NSObject <AVCaptureFileOutputRecordingDelegate>

@@ -41,7 +41,7 @@
     self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession: self.session];
     self.previewLayer.frame = self.view.bounds;
     self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [self.view.layer addSublayer: self.previewLayer];
+    // [self.view.layer addSublayer: self.previewLayer];
     
     return self;
 }
