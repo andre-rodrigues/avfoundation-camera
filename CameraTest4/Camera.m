@@ -46,7 +46,6 @@
     return self;
 }
 
-// Find a front facing camera, returning nil if one is not found
 - (AVCaptureDevice *) frontFacingCamera
 {
     NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -59,7 +58,6 @@
     return nil;
 }
 
-// Find and return an audio device, returning nil if one is not found
 - (AVCaptureDevice *) audioDevice
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
@@ -72,7 +70,6 @@
 
 -(void)setSessionInput
 {
-    // Set session input
     NSError *error = nil;
     self.videoInput = [AVCaptureDeviceInput deviceInputWithDevice: self.camera error: &error];
     self.audioInput = [[AVCaptureDeviceInput alloc] initWithDevice: self.microfone error:nil];
@@ -104,10 +101,8 @@
 {
     [self.session startRunning];
 
-    AVCaptureConnection *videoConnection = [self.movieFileOutput connections][0];
-    if ([videoConnection isVideoOrientationSupported])
-        [videoConnection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
-    
+    [self correctVideoOrientation];
+
     NSError *error = nil;
     NSFileManager *fileMgr = [NSFileManager defaultManager];
     // Attempt to delete some old temp file
@@ -119,7 +114,6 @@
 
 -(void)stop
 {
-    // Stop running
     [self.session stopRunning];
 }
 
@@ -159,6 +153,13 @@ didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL
         }];
         
     }
+}
+
+- (void) correctVideoOrientation
+{
+    AVCaptureConnection *videoConnection = [self.movieFileOutput connections][0];
+    if ([videoConnection isVideoOrientationSupported])
+        [videoConnection setVideoOrientation:[UIDevice currentDevice].orientation];
 }
 
 @end

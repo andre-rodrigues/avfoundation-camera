@@ -33,5 +33,6 @@
 -(void) setSessionOutput;
 -(void) start;
 -(void) stop;
+-(void) correctVideoOrientation;
 
 @end
